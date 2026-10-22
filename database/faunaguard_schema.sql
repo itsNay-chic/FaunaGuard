@@ -118,9 +118,9 @@ INSERT INTO animals (
     'Subspesies badak terkecil di dunia yang sangat pemalu dan soliter. Memiliki dua cula kecil dan tubuh berbulu kasar kemerahan. Merupakan mamalia darat paling langka di Kalimantan.',
     'Populasi yang sangat kecil dan terisolasi menyulitkan perkembangbiakan alami, ancaman jerat pemburu babi hutan, serta hilangnya koridor hutan jelajah.',
     15,
-    1, -- Mamalia
-    1, -- CR (Critically Endangered)
-    3, -- Hutan Lindung Kutai Barat
+    1,
+    1,
+    3,
     'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Dicerorhinus_sumatrensis.jpg/640px-Dicerorhinus_sumatrensis.jpg'
 ),
 (
@@ -129,9 +129,9 @@ INSERT INTO animals (
     'Mamalia air tawar unik lumba-lumba sungai berkepala bulat tanpa paruh moncong. Hidup di perairan tawar Sungai Mahakam dan bernapas menghirup udara setiap beberapa menit sekali.',
     'Terjerat jaring insang nelayan (rengge), pencemaran limbah cair industri sawit dan tambang batubara, serta kebisingan lambung kapal ponton batubara.',
     67,
-    1, -- Mamalia
-    1, -- CR (Critically Endangered)
-    4, -- DAS Sungai Mahakam
+    1,
+    1,
+    4,
     'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Irrawaddy_dolphin.jpg/640px-Irrawaddy_dolphin.jpg'
 ),
 (
@@ -140,17 +140,12 @@ INSERT INTO animals (
     'Burung berukuran megah dengan bentang sayap hampir 2 meter dan helm/balung kepala padat berwarna merah menyala. Memiliki suara panggilan tawa khas yang menggema di seluruh hutan pedalaman Borneo.',
     'Perburuan liar brutal untuk mengambil balung padatnya (dijuluki gading merah bernilai tinggi di pasar gelap) serta penebangan pohon beringin/ara raksasa tempat bersarang.',
     NULL,
-    2, -- Aves
-    1, -- CR (Critically Endangered)
-    5, -- TN Betung Kerihun
+    2,
+    1,
+    5,
     'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Helmeted_hornbill_%28Rhinoplax_vigil%29_-_Flickr_-_gregthebusker_%281%29.jpg/640px-Helmeted_hornbill_%28Rhinoplax_vigil%29_-_Flickr_-_gregthebusker_%281%29.jpg'
 );
 
--- =============================================================================
--- 6. Query Pengujian untuk Verifikasi Langsung di MySQL Workbench
--- =============================================================================
-
--- Query Uji: Tampilkan semua satwa lengkap dengan kategori, status, dan habitatnya
 SELECT 
     a.id,
     a.nama_lokal,
