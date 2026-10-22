@@ -1,0 +1,261 @@
+/* =============================================================================
+   FaunaGuard - Borneo Rainforest Design System
+   Palet Warna Resmi:
+   - Primary (Deep Rainforest): #186049
+   - Secondary (Lush Forest):  #4A943E
+   - Surface/Light (Pale Sand): #ECE8AF
+   - Warning/CTA (Amber Ochre): #D98327
+   ============================================================================= */
+
+:root {
+    --fg-primary: #186049;
+    --fg-secondary: #4A943E;
+    --fg-sand: #ECE8AF;
+    --fg-amber: #D98327;
+    --fg-dark: #12372c;
+    --fg-cream-soft: #fcfbf5;
+    --fg-card-border: #ded89d;
+}
+
+body {
+    background-color: var(--fg-cream-soft);
+    color: #212529;
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. Navbar */
+.fg-navbar {
+    background-color: var(--fg-primary);
+    box-shadow: 0 3px 12px rgba(24, 96, 73, 0.2);
+}
+
+.fg-navbar .navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.fg-navbar .navbar-brand span {
+    color: var(--fg-amber);
+}
+
+.fg-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.fg-navbar .nav-link:hover,
+.fg-navbar .nav-link.active {
+    color: var(--fg-sand) !important;
+}
+
+/* 2. Hero Section */
+.fg-hero {
+    background: linear-gradient(135deg, var(--fg-primary) 0%, #0d3b2c 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+    position: relative;
+    border-bottom: 4px solid var(--fg-amber);
+}
+
+.fg-hero h1 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.fg-hero .lead {
+    color: var(--fg-sand);
+    font-size: 1.15rem;
+}
+
+/* 3. Stat Badges / Counter Cards */
+.stat-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(236, 232, 175, 0.35);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    backdrop-filter: blur(4px);
+}
+
+.stat-pill .number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--fg-sand);
+    line-height: 1;
+}
+
+.stat-pill .label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 4. Filter & Search Bar */
+.filter-card {
+    background-color: #ffffff;
+    border: 1px solid var(--fg-card-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 15px rgba(24, 96, 73, 0.05);
+}
+
+/* 5. Custom Buttons */
+.btn-fg-primary {
+    background-color: var(--fg-primary);
+    border-color: var(--fg-primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-fg-primary:hover {
+    background-color: var(--fg-dark);
+    border-color: var(--fg-dark);
+    color: #ffffff;
+}
+
+.btn-fg-amber {
+    background-color: var(--fg-amber);
+    border-color: var(--fg-amber);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-fg-amber:hover {
+    background-color: #ba6d1b;
+    border-color: #ba6d1b;
+    color: #ffffff;
+}
+
+.btn-fg-outline {
+    border: 2px solid var(--fg-primary);
+    color: var(--fg-primary);
+    font-weight: 600;
+    background: transparent;
+}
+
+.btn-fg-outline:hover {
+    background-color: var(--fg-primary);
+    color: #ffffff;
+}
+
+/* 6. Animal Information Cards */
+.animal-card {
+    background-color: #ffffff;
+    border: 1px solid var(--fg-card-border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.animal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(24, 96, 73, 0.12);
+}
+
+.animal-img-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: #e9ecef;
+    overflow: hidden;
+}
+
+.animal-img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.animal-card:hover .animal-img-wrapper img {
+    transform: scale(1.04);
+}
+
+.status-badge-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 20px;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.category-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--fg-secondary);
+    letter-spacing: 0.6px;
+}
+
+.animal-title {
+    font-weight: 700;
+    color: var(--fg-primary);
+    margin-bottom: 0.15rem;
+}
+
+.animal-scientific {
+    font-size: 0.88rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.animal-desc {
+    font-size: 0.9rem;
+    color: #495057;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.habitat-info {
+    font-size: 0.82rem;
+    color: #555;
+    background-color: #f7f6ec;
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    border-left: 3px solid var(--fg-secondary);
+}
+
+/* 7. Footer */
+.fg-footer {
+    background-color: var(--fg-primary);
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: auto;
+    padding: 2rem 0;
+    border-top: 3px solid var(--fg-secondary);
+}
+
+.fg-footer a {
+    color: var(--fg-sand);
+    text-decoration: none;
+}
+
+.fg-footer a:hover {
+    text-decoration: underline;
+}
+
+/* 8. Setup Notice Page */
+.setup-box {
+    background: #ffffff;
+    border-top: 5px solid var(--fg-amber);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}

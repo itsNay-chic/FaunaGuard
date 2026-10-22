@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Panduan Setup Database — FaunaGuard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="setup-box p-4 p-md-5">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="p-3 rounded-circle text-white" style="background-color: var(--fg-amber);">
+                        <i class="bi bi-database-exclamation fs-2"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-1" style="color: var(--fg-primary);">Database Belum Terhubung</h4>
+                        <p class="text-muted small mb-0">
+                            Aplikasi web FaunaGuard aktif, namun belum dapat tersambung ke database MySQL lokal Anda.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pesan Teknis Error -->
+                <div class="alert alert-warning small mb-4">
+                    <strong>Pesan Sistem:</strong>
+                    <code>{{ error_message }}</code>
+                </div>
+
+                <h5 class="fw-bold mb-3" style="color: var(--fg-primary);">
+                    Langkah Mudah Menyiapkan Database di MySQL Workbench:
+                </h5>
+
+                <ol class="list-group list-group-numbered mb-4 shadow-sm">
+                    <li class="list-group-item d-flex justify-content-between align-items-start py-3">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Buka MySQL Workbench</div>
+                            Klik koneksi lokal Anda (misal: <code>Local instance MySQL80</code> pada port <code>{{ db_port }}</code>).
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start py-3">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Buka Script SQL FaunaGuard</div>
+                            Di MySQL Workbench, klik menu <strong>File &gt; Open SQL Script...</strong> lalu pilih file:
+                            <br>
+                            <code>C:\Users\ASUS\.gemini\antigravity\scratch\faunaguard\database\faunaguard_schema.sql</code>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start py-3">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Jalankan Script (Execute)</div>
+                            Klik ikon <strong>Petir Kuning ⚡</strong> (Execute all) untuk membuat database <code>{{ db_name }}</code> beserta 4 tabel dan seeder data satwanya.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start py-3">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Periksa Password di File <code>.env</code></div>
+                            Buka file <code>.env</code> di folder proyek dan pastikan <code>DB_PASSWORD</code> telah diisi sesuai dengan password user <code>root</code> MySQL lokal Anda.
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="javascript:location.reload();" class="btn btn-fg-amber px-4 py-2 rounded-pill shadow-sm">
+                        <i class="bi bi-arrow-clockwise me-1"></i> Coba Muat Ulang Halaman
+                    </a>
+                    <span class="small text-muted">
+                        Target Host: <code>{{ db_host }}:{{ db_port }}</code>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

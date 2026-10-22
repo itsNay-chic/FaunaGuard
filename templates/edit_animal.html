@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Data Satwa — FaunaGuard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <!-- Navigasi Balik -->
+            <div class="mb-3">
+                <a href="{{ url_for('manage') }}" class="text-decoration-none text-muted small">
+                    <i class="bi bi-arrow-left me-1"></i> Kembali ke Tabel Kelola
+                </a>
+            </div>
+
+            <!-- Kartu Form Edit Satwa -->
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header text-white p-4" style="background-color: var(--fg-primary);">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-pencil-square text-warning fs-3"></i>
+                        <div>
+                            <h4 class="fw-bold mb-0">Perbarui Data Satwa (ID #{{ animal.id }})</h4>
+                            <small class="text-light opacity-75">
+                                Memperbarui kolom pada baris data <strong>{{ animal.nama_lokal }}</strong> di tabel <code>animals</code>.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" action="{{ url_for('edit_animal', animal_id=animal.id) }}" enctype="multipart/form-data">
+                        <!-- Baris 1: Nama Satwa -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark">
+                                    Nama Lokal / Populer <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="nama_lokal" class="form-control" value="{{ animal.nama_lokal }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark">
+                                    Nama Ilmiah (Latin) <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="nama_ilmiah" class="form-control fst-italic" value="{{ animal.nama_ilmiah }}" required>
+                            </div>
+                        </div>
+
+                        <!-- Baris 2: Relasi Kategori & Status Konservasi -->
+                        <div class="p-3 rounded-3 mb-3" style="background-color: #f7f6ec; border: 1px dashed var(--fg-card-border);">
+                            <h6 class="fw-bold mb-3" style="color: var(--fg-primary);">
+                                <i class="bi bi-diagram-3-fill me-1"></i> Taksonomi & Status Konservasi
+                            </h6>
+                            <div class="row g-3">
+                                <!-- Kategori -->
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">
+                                        Kategori Taksonomi <span class="text-danger">*</span>
+                                    </label>
+                                    <select name="category_id" class="form-select" required>
+                                        {% for c in categories %}
+                                            <option value="{{ c.id }}" {% if animal.category_id == c.id %}selected{% endif %}>
+                                                {{ c.nama_kategori }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Status Konservasi -->
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-dark">
+                                        Status IUCN (status_id) <span class="text-danger">*</span>
+                                    </label>
+                                    <select name="status_id" class="form-select" required>
+                                        {% for s in statuses %}
+                                            <option value="{{ s.id }}" {% if animal.status_id == s.id %}selected{% endif %}>
+                                                {{ s.kode }} - {{ s.nama_status }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Baris 2.1: Kawasan Habitat (Input Manual) -->
+                        <div class="p-3 rounded-3 mb-3 border bg-white shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold mb-0" style="color: var(--fg-primary);">
+                                    <i class="bi bi-geo-alt-fill text-success me-1"></i> Kawasan Habitat Alami (Input Manual)
+                                </h6>
+                                <span class="badge bg-success-subtle text-success small border border-success-subtle">
+                                    <i class="bi bi-pencil-square me-1"></i> Input Bebas / Manual
+                                </span>
+                            </div>
+
+                            <div class="row g-3">
+                                <!-- Nama Kawasan Habitat Manual -->
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-bold text-dark">
+                                        Nama Kawasan / Cagar Alam <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-tree"></i></span>
+                                        <input 
+                                            type="text" 
+                                            name="nama_habitat" 
+                                            id="namaHabitatInput" 
+                                            list="habitatSuggestions" 
+                                            class="form-control" 
+                                            value="{{ animal.nama_habitat if animal.nama_habitat else '' }}" 
+                                            placeholder="Ketik nama habitat..." 
+                                            required
+                                        >
+                                    </div>
+                                    <datalist id="habitatSuggestions">
+                                        {% for h in habitats %}
+                                            <option value="{{ h.nama_habitat }}">{{ h.lokasi }} ({{ h.tipe_ekosistem }})</option>
+                                        {% endfor %}
+                                    </datalist>
+                                    <small class="text-muted">Ketik bebas kawasan baru atau pilih rekomendasi.</small>
+                                </div>
+
+                                <!-- Lokasi Habitat Manual -->
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-dark">
+                                        Lokasi Wilayah / Kabupaten <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-pin-map"></i></span>
+                                        <input 
+                                            type="text" 
+                                            name="habitat_lokasi" 
+                                            id="lokasiHabitatInput" 
+                                            class="form-control" 
+                                            value="{{ animal.habitat_lokasi if animal.habitat_lokasi else '' }}" 
+                                            placeholder="Contoh: Kutai Barat, Kaltim" 
+                                            required
+                                        >
+                                    </div>
+                                    <small class="text-muted">Lokasi administratif atau geografis.</small>
+                                </div>
+
+                                <!-- Tipe Ekosistem Manual -->
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-dark">
+                                        Tipe Ekosistem <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-water"></i></span>
+                                        <input 
+                                            type="text" 
+                                            name="tipe_ekosistem" 
+                                            id="ekosistemInput" 
+                                            list="ekosistemSuggestions" 
+                                            class="form-control" 
+                                            value="{{ animal.tipe_ekosistem if animal.tipe_ekosistem else '' }}" 
+                                            placeholder="Contoh: Hutan Rawa Gambut" 
+                                            required
+                                        >
+                                    </div>
+                                    <datalist id="ekosistemSuggestions">
+                                        <option value="Hutan Hujan Tropis">
+                                        <option value="Hutan Hujan Dataran Rendah">
+                                        <option value="Hutan Rawa Gambut">
+                                        <option value="Hutan Mangrove / Bakau">
+                                        <option value="Perairan Sungai & Danau Rawa">
+                                        <option value="Hutan Pegunungan & Perbukitan">
+                                    </datalist>
+                                    <small class="text-muted">Ketik jenis ekosistem hutan/sungai.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Baris 3: Estimasi Populasi -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark">Estimasi Populasi di Alam</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-people"></i></span>
+                                    <input type="number" name="estimasi_populasi" class="form-control" value="{{ animal.estimasi_populasi if animal.estimasi_populasi else '' }}">
+                                </div>
+                                <small class="text-muted">Kosongkan jika populasi tidak diketahui secara pasti.</small>
+                            </div>
+                        </div>
+
+                        <!-- Section Foto Satwa: Pilihan Upload atau URL dengan Live Preview -->
+                        <div class="p-3 rounded-3 mb-3 border bg-light">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold text-dark mb-0">
+                                    <i class="bi bi-camera-fill text-success me-1"></i> Foto Satwa
+                                </label>
+                                <span class="badge bg-secondary-subtle text-secondary small">Ganti dengan File ATAU URL Baru</span>
+                            </div>
+                            
+                            <div class="row g-3 align-items-start">
+                                <div class="col-lg-8">
+                                    <!-- Pilihan 1: Upload File Baru -->
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-secondary mb-1">
+                                            <i class="bi bi-upload me-1"></i> Opsi 1: Unggah File Gambar Baru dari Komputer
+                                        </label>
+                                        <input type="file" name="foto_file" id="fotoFileInput" class="form-control" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif">
+                                        <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah foto satwa.</small>
+                                    </div>
+
+                                    <!-- Pilihan 2: Ganti URL Link -->
+                                    <div class="mb-2">
+                                        <label class="form-label small fw-bold text-secondary mb-1">
+                                            <i class="bi bi-link-45deg me-1"></i> Opsi 2: Atau Ubah Link / URL Gambar
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-image"></i></span>
+                                            <input type="text" name="foto_url" id="fotoUrlInput" class="form-control" value="{{ animal.foto_url if animal.foto_url else '' }}" placeholder="https://... (link file .jpg / .png)">
+                                        </div>
+                                        <div class="alert alert-info py-2 px-3 mt-2 mb-0 small">
+                                            <i class="bi bi-info-circle-fill me-1"></i> <strong>Tips Gambar Online:</strong> Jika menyalin dari Google/website, klik kanan pada gambar lalu pilih <em>"Salin Alamat Gambar" (Copy Image Address)</em>, bukan link artikelnya.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Kolom Pratinjau Foto -->
+                                <div class="col-lg-4 text-center">
+                                    <label class="form-label small fw-bold text-muted mb-1">Pratinjau Foto Aktif</label>
+                                    <div class="border rounded-3 overflow-hidden bg-white shadow-sm position-relative d-flex align-items-center justify-content-center" style="height: 180px;">
+                                        <img id="imagePreview" src="{{ animal.foto_url if animal.foto_url else url_for('static', filename='img/placeholder.svg') }}" alt="Pratinjau Foto" class="img-fluid w-100 h-100" style="object-fit: cover;" referrerpolicy="no-referrer">
+                                    </div>
+                                    <small id="previewStatus" class="text-muted d-block mt-1">Foto saat ini</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Baris 4: Deskripsi Edukasi -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Deskripsi & Peran Ekologis Satwa</label>
+                            <textarea name="deskripsi" class="form-control" rows="3">{{ animal.deskripsi }}</textarea>
+                        </div>
+
+                        <!-- Baris 5: Ancaman Utama -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-danger">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i> Ancaman Utama Kepunahan
+                            </label>
+                            <textarea name="ancaman_utama" class="form-control" rows="2">{{ animal.ancaman_utama }}</textarea>
+                        </div>
+
+                        <!-- Tombol Aksi -->
+                        <div class="d-flex justify-content-end gap-2 border-top pt-3">
+                            <a href="{{ url_for('manage') }}" class="btn btn-outline-secondary rounded-pill px-4">Batal</a>
+                            <button type="submit" class="btn btn-fg-primary rounded-pill px-4 shadow-sm">
+                                <i class="bi bi-save2-fill me-1"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('fotoFileInput');
+    const urlInput = document.getElementById('fotoUrlInput');
+    const previewImg = document.getElementById('imagePreview');
+    const previewStatus = document.getElementById('previewStatus');
+    const defaultPlaceholder = "{{ url_for('static', filename='img/placeholder.svg') }}";
+
+    // 1. Live preview saat memilih file dari komputer
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const objectUrl = URL.createObjectURL(file);
+                previewImg.src = objectUrl;
+                previewStatus.textContent = `✓ File baru siap: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+                previewStatus.className = 'text-success fw-bold d-block mt-1';
+            }
+        });
+    }
+
+    // 2. Live preview saat mengubah URL
+    if (urlInput) {
+        urlInput.addEventListener('input', function() {
+            const val = this.value.trim();
+            if (val) {
+                previewImg.src = val;
+                previewStatus.textContent = 'Memuat dari tautan URL baru...';
+                previewStatus.className = 'text-primary d-block mt-1';
+            } else if (!fileInput || !fileInput.files.length) {
+                previewImg.src = defaultPlaceholder;
+                previewStatus.textContent = 'Foto dikosongkan';
+                previewStatus.className = 'text-muted d-block mt-1';
+            }
+        });
+
+        previewImg.addEventListener('load', function() {
+            if (urlInput.value.trim() && (!fileInput || !fileInput.files.length)) {
+                if (previewImg.src !== defaultPlaceholder && !previewImg.src.endsWith('placeholder.svg')) {
+                    previewStatus.textContent = '✓ Gambar valid dan berhasil dimuat';
+                    previewStatus.className = 'text-success fw-bold d-block mt-1';
+                }
+            }
+        });
+
+        previewImg.addEventListener('error', function() {
+            if (urlInput.value.trim() && (!fileInput || !fileInput.files.length)) {
+                this.src = defaultPlaceholder;
+                previewStatus.textContent = '⚠ Link bukan file gambar langsung atau tidak dapat diakses. Gunakan Opsi 1 (Unggah File) atau salin "Alamat Gambar".';
+                previewStatus.className = 'text-danger fw-bold d-block mt-1';
+            }
+        });
+    }
+
+    // 3. Rekomendasi otomatis jika memilih nama habitat dari datalist (tetap bebas diedit manual)
+    const habitatInput = document.getElementById('namaHabitatInput');
+    const lokasiInput = document.getElementById('lokasiHabitatInput');
+    const ekosistemInput = document.getElementById('ekosistemInput');
+
+    const knownHabitats = {
+        {% for h in habitats %}
+        "{{ h.nama_habitat }}": {
+            lokasi: "{{ h.lokasi }}",
+            ekosistem: "{{ h.tipe_ekosistem }}"
+        },
+        {% endfor %}
+    };
+
+    if (habitatInput && lokasiInput && ekosistemInput) {
+        habitatInput.addEventListener('input', function() {
+            const typed = this.value.trim();
+            if (knownHabitats[typed]) {
+                lokasiInput.value = knownHabitats[typed].lokasi;
+                ekosistemInput.value = knownHabitats[typed].ekosistem;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

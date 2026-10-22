@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Kelola Database Satwa — FaunaGuard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header Bagian Kelola -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <span class="badge px-3 py-2 rounded-pill mb-2" style="background-color: var(--fg-secondary); color: #fff;">
+                <i class="bi bi-database me-1"></i> Panel Pengelolaan Relasional MySQL
+            </span>
+            <h3 class="fw-bold mb-1" style="color: var(--fg-primary);">
+                Manajemen Data Satwa Dilindungi
+            </h3>
+            <p class="text-muted small mb-0">
+                Data pada tabel ini tersinkronisasi langsung dengan tabel <code>animals</code> di database MySQL <code>faunaguard_db</code>.
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary rounded-pill px-3">
+                <i class="bi bi-eye me-1"></i> Lihat Halaman Publik
+            </a>
+            <a href="{{ url_for('add_animal') }}" class="btn btn-fg-amber rounded-pill px-4 shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Satwa Baru
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabel Data Relasional -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="text-white" style="background-color: var(--fg-primary);">
+                    <tr>
+                        <th scope="col" class="ps-4" style="width: 70px;">ID</th>
+                        <th scope="col" style="width: 100px;">Foto</th>
+                        <th scope="col">Nama Satwa & Ilmiah</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">Status Konservasi</th>
+                        <th scope="col">Kawasan Habitat</th>
+                        <th scope="col">Populasi</th>
+                        <th scope="col" class="text-end pe-4" style="width: 160px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if animals %}
+                        {% for a in animals %}
+                            <tr>
+                                <td class="ps-4 fw-bold text-muted">#{{ a.id }}</td>
+                                <td>
+                                    <img 
+                                        src="{{ a.foto_url if a.foto_url else url_for('static', filename='img/placeholder.svg') }}" 
+                                        alt="{{ a.nama_lokal }}" 
+                                        class="rounded-3 shadow-sm"
+                                        style="width: 54px; height: 54px; object-fit: cover;"
+                                        referrerpolicy="no-referrer"
+                                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/placeholder.svg') }}';"
+                                    >
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ a.nama_lokal }}</div>
+                                    <div class="small text-muted fst-italic">{{ a.nama_ilmiah }}</div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">
+                                        {{ a.nama_kategori }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge" style="background-color: {{ a.warna_badge }}; color: #fff;">
+                                        {{ a.status_kode }} — {{ a.nama_status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="small fw-semibold text-dark">
+                                        <i class="bi bi-geo-alt-fill text-success me-1"></i>{{ a.nama_habitat }}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if a.estimasi_populasi %}
+                                        <span class="small fw-bold text-dark">
+                                            ±{{ "{:,}".format(a.estimasi_populasi).replace(',', '.') }}
+                                        </span>
+                                    {% else %}
+                                        <span class="small text-muted fst-italic">Kritis / Tidak pasti</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="d-inline-flex gap-1">
+                                        <!-- Tombol Edit -->
+                                        <a href="{{ url_for('edit_animal', animal_id=a.id) }}" class="btn btn-outline-primary btn-sm rounded-pill px-3" title="Edit Data">
+                                            <i class="bi bi-pencil-square"></i> Edit
+                                        </a>
+
+                                        <!-- Form Tombol Hapus -->
+                                        <form method="POST" action="{{ url_for('delete_animal', animal_id=a.id) }}" onsubmit="return confirmDelete('{{ a.nama_lokal }}');" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-2" title="Hapus Data">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                Belum ada data satwa tersimpan di tabel <code>animals</code>.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
