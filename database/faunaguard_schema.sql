@@ -1,18 +1,7 @@
--- =============================================================================
--- FaunaGuard: Database Schema & Seeder Script
--- Tema: Media Penyebaran Informasi & Konservasi Satwa Dilindungi Kalimantan
--- RDBMS Engine: MySQL 5.7+ / 8.0+ (InnoDB)
--- Kompatibel Penuh: MySQL Workbench 8.0 CE
--- =============================================================================
-
--- 1. Inisialisasi Database
 CREATE DATABASE IF NOT EXISTS faunaguard_db 
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 
-USE faunaguard_db;
-
--- Matikan foreign key checks sementara untuk kemudahan eksekusi ulang (reset aman)
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS animals;
 DROP TABLE IF EXISTS habitats;
@@ -20,18 +9,12 @@ DROP TABLE IF EXISTS conservation_statuses;
 DROP TABLE IF EXISTS categories;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- =============================================================================
--- 2. DDL: Pembuatan Tabel Master (Normalized Tables)
--- =============================================================================
-
--- Tabel 1: Kategori Taksonomi Satwa
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama_kategori VARCHAR(50) NOT NULL UNIQUE,
     deskripsi TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabel 2: Status Konservasi Berdasarkan Kategori IUCN Red List
 CREATE TABLE conservation_statuses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     kode VARCHAR(10) NOT NULL UNIQUE,
@@ -40,17 +23,12 @@ CREATE TABLE conservation_statuses (
     tingkat_ancaman VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabel 3: Kawasan Konservasi & Habitat Alami Kalimantan
 CREATE TABLE habitats (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama_habitat VARCHAR(100) NOT NULL,
     lokasi VARCHAR(100) NOT NULL,
     tipe_ekosistem VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- =============================================================================
--- 3. DDL: Pembuatan Tabel Utama Satwa (Dengan Foreign Key)
--- =============================================================================
 
 CREATE TABLE animals (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -65,8 +43,7 @@ CREATE TABLE animals (
     foto_url VARCHAR(500) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    -- Definisi Foreign Key & Integritas Referensial
+
     CONSTRAINT fk_animal_category 
         FOREIGN KEY (category_id) REFERENCES categories (id) 
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -80,7 +57,6 @@ CREATE TABLE animals (
         ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Indexing untuk mempercepat query pencarian dan join
 CREATE INDEX idx_animals_nama ON animals (nama_lokal);
 CREATE INDEX idx_animals_category ON animals (category_id);
 CREATE INDEX idx_animals_status ON animals (status_id);
