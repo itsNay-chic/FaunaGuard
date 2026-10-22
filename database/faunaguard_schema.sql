@@ -62,33 +62,22 @@ CREATE INDEX idx_animals_category ON animals (category_id);
 CREATE INDEX idx_animals_status ON animals (status_id);
 CREATE INDEX idx_animals_habitat ON animals (habitat_id);
 
--- =============================================================================
--- 4. Seeder Data: Master Data Kategori, Status IUCN, & Habitat
--- =============================================================================
-
--- Master Kategori
 INSERT INTO categories (nama_kategori, deskripsi) VALUES
 ('Mamalia', 'Hewan menyusui bertulang belakang yang berdarah panas, sebagian besar berhabitat di hutan tropis dan sungai Kalimantan.'),
 ('Aves', 'Kelompok burung dan unggas berbulu yang memiliki peran penting dalam penyebaran biji pohon hutan kanopi Kalimantan.'),
 ('Reptilia', 'Hewan melata berdarah dingin bersisik, mendiami rawa gambut dan perairan tawar Pulau Borneo.');
 
--- Master Status Konservasi IUCN
 INSERT INTO conservation_statuses (kode, nama_status, warna_badge, tingkat_ancaman) VALUES
 ('CR', 'Critically Endangered (Kritis)', '#D98327', 'Sangat Kritis Menuju Kepunahan'),
 ('EN', 'Endangered (Terancam)', '#4A943E', 'Risiko Tinggi Kepunahan di Alam Liar'),
 ('VU', 'Vulnerable (Rentan)', '#186049', 'Menghadapi Risiko Kepunahan Masa Depan');
 
--- Master Kawasan Habitat Kalimantan
 INSERT INTO habitats (nama_habitat, lokasi, tipe_ekosistem) VALUES
 ('Taman Nasional Tanjung Puting', 'Kotawaringin Barat, Kalimantan Tengah', 'Hutan Rawa Gambut & Hutan Tropis'),
 ('Taman Nasional Kutai', 'Kutai Timur & Bontang, Kalimantan Timur', 'Hutan Hujan Dataran Rendah & Bakau'),
 ('Hutan Lindung Kutai Barat', 'Kutai Barat, Kalimantan Timur', 'Hutan Hujan Tropis Pedalaman'),
 ('Daerah Aliran Sungai Mahakam', 'Kutai Kartanegara & Samarinda, Kaltim', 'Perairan Air Tawar & Danau Rawa'),
 ('Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan');
-
--- =============================================================================
--- 5. Seeder Data: 5 Satwa Ikonik & Dilindungi Khas Kalimantan
--- =============================================================================
 
 INSERT INTO animals (
     nama_lokal, 
@@ -107,9 +96,9 @@ INSERT INTO animals (
     'Primata besar berbulu oranye kecokelatan yang menghabiskan 90% hidupnya di kanopi pohon. Merupakan "petani hutan" sejati karena perannya yang vital dalam menyebarkan biji-bijian pohon hutan hujan Kalimantan.',
     'Deforestasi masif akibat alih fungsi lahan sawit, kebakaran lahan gambut, serta fragmentasi habitat oleh jalur logistik tambang.',
     57000,
-    1, -- Mamalia
-    1, -- CR (Critically Endangered)
-    1, -- TN Tanjung Puting
+    1, 
+    1, 
+    1, 
     'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG/640px-Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG'
 ),
 (
@@ -118,9 +107,9 @@ INSERT INTO animals (
     'Monyet endemik Pulau Borneo dengan ciri khas hidung panjang menggantung dan perut buncit. Mampu berenang dengan sangat baik melintasi rawa dan sungai karena memiliki selaput di sela-sela jarinya.',
     'Konversi hutan mangrove dan nipah pesisir menjadi tambak udang komersial, pencemaran air muara, serta perburuan liar sporadis.',
     16000,
-    1, -- Mamalia
-    2, -- EN (Endangered)
-    2, -- TN Kutai
+    1, 
+    2, 
+    2, 
     'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Proboscis_monkey_%28Nasalis_larvatus%29_male_Labuk_Bay.jpg/640px-Proboscis_monkey_%28Nasalis_larvatus%29_male_Labuk_Bay.jpg'
 ),
 (
