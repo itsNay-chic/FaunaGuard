@@ -110,12 +110,86 @@ def handle_database_error(error):
 # 1. RUTE PUBLIK: Media Penyebaran Informasi & Edukasi
 # =============================================================================
 
+@app.route("/beranda")
 @app.route("/")
+def beranda():
+    """
+    Halaman Beranda (Home / Suaka Edukasi Utama)
+    Menampilkan Pengenalan Singkat FaunaGuard, Latar Belakang Konservasi Borneo,
+    Pilar & Fitur Unggulan Web, Statistik Hayati, serta Sorotan Satwa Kritis.
+    """
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cursor:
+            # 1. Hitung Statistik Real-time untuk Beranda
+            cursor.execute("SELECT COUNT(*) AS total_spesies FROM animals;")
+            res = cursor.fetchone()
+            stat_total = res["total_spesies"] if res else 0
+
+            cursor.execute("""
+                SELECT COUNT(*) AS total_kritis 
+                FROM animals a 
+                JOIN conservation_statuses s ON a.status_id = s.id 
+                WHERE s.kode = 'CR';
+            """)
+            res = cursor.fetchone()
+            stat_kritis = res["total_kritis"] if res else 0
+
+            cursor.execute("SELECT COUNT(DISTINCT habitat_id) AS total_habitat FROM animals;")
+            res = cursor.fetchone()
+            stat_habitat = res["total_habitat"] if res else 0
+
+            cursor.execute("SELECT COUNT(*) AS total_kategori FROM categories;")
+            res = cursor.fetchone()
+            stat_kategori = res["total_kategori"] if res else 0
+
+            # 2. Ambil Sorotan Satwa Kritis & Unggulan (Maksimal 3 satwa teratas)
+            cursor.execute("""
+                SELECT 
+                    a.id,
+                    a.nama_lokal,
+                    a.nama_ilmiah,
+                    a.deskripsi,
+                    a.ancaman_utama,
+                    a.estimasi_populasi,
+                    a.foto_url,
+                    c.nama_kategori,
+                    s.kode AS status_kode,
+                    s.nama_status,
+                    s.warna_badge,
+                    h.nama_habitat,
+                    h.lokasi AS habitat_lokasi,
+                    h.tipe_ekosistem
+                FROM animals a
+                JOIN categories c ON a.category_id = c.id
+                JOIN conservation_statuses s ON a.status_id = s.id
+                JOIN habitats h ON a.habitat_id = h.id
+                ORDER BY (s.kode = 'CR') DESC, a.id ASC
+                LIMIT 3;
+            """)
+            featured_animals = cursor.fetchall()
+
+        return render_template(
+            "beranda.html",
+            stats={
+                "total": stat_total,
+                "kritis": stat_kritis,
+                "habitat": stat_habitat,
+                "kategori": stat_kategori
+            },
+            featured_animals=featured_animals
+        )
+    finally:
+        conn.close()
+
+
+@app.route("/katalog-satwa")
+@app.route("/katalog")
 def index():
     """
-    Halaman Utama (Public Information Portal)
-    Menampilkan Hero Konservasi, Statistik Cepat, Filter Interaktif,
-    serta Kartu Informasi Satwa (Animal Cards).
+    Halaman Katalog Satwa (Public Exploration & Search)
+    Menampilkan Hero Ringkas, Statistik Cepat, Filter Interaktif,
+    serta Kartu Informasi Satwa (Animal Cards) Lengkap.
     """
     conn = get_db_connection()
     try:
@@ -521,11 +595,20 @@ def delete_animal(animal_id):
 
 
 if __name__ == "__main__":
+    import sys
+    if sys.platform.startswith("win"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+            sys.stderr.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
     port = int(os.getenv("PORT", 5000))
     debug = os.getenv("DEBUG", "True").lower() == "true"
     print("\n=======================================================")
-    print(" 🌿 FaunaGuard: Suaka Informasi Satwa Kalimantan")
+    print(" FaunaGuard: Suaka Informasi Satwa Kalimantan")
     print(f" Database Target: MySQL ({DB_HOST}:{DB_PORT}/{DB_NAME})")
     print(f" Web Server Berjalan di: http://127.0.0.1:{port}")
     print("=======================================================\n")
     app.run(host="127.0.0.1", port=port, debug=debug)
+

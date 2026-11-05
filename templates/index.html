@@ -1,29 +1,37 @@
 {% extends "base.html" %}
 
-{% block title %}FaunaGuard — Suaka Informasi Satwa Dilindungi Kalimantan{% endblock %}
+{% block title %}Katalog Satwa Dilindungi Kalimantan — FaunaGuard{% endblock %}
 
 {% block content %}
-<!-- 1. Hero Section Edukasi -->
+<!-- 1. Hero Section Katalog -->
 <section class="fg-hero">
     <div class="container">
         <div class="row align-items-center gy-4">
             <div class="col-lg-7">
+                <nav aria-label="breadcrumb" class="mb-2">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url_for('beranda') }}" class="text-white text-decoration-none opacity-75"><i class="bi bi-house-door me-1"></i>Beranda</a></li>
+                        <li class="breadcrumb-item active text-warning" aria-current="page">Katalog Satwa</li>
+                    </ol>
+                </nav>
                 <span class="badge px-3 py-2 rounded-pill mb-3" style="background-color: var(--fg-secondary); color: #fff;">
-                    <i class="bi bi-tree-fill me-1"></i> Suaka Biodiversitas Borneo
+                    <i class="bi bi-grid-fill me-1"></i> Katalog & Eksplorasi Hayati
                 </span>
                 <h1 class="display-5 text-white mb-3">
-                    Lindungi Satwa Unik & Endemik Hutan Hujan Kalimantan
+                    Eksplorasi Satwa Unik & Dilindungi Kalimantan
                 </h1>
                 <p class="lead mb-4">
-                    FaunaGuard adalah media penyebaran informasi publik tentang keanekaragaman hayati, 
-                    status keterancaman spesies (IUCN Red List), dan ekosistem kritis di Pulau Borneo.
+                    Jelajahi keanekaragaman fauna endemik Pulau Borneo. Gunakan bilah pencarian dan saringan taksonomi di bawah untuk menemukan profil spesies beserta status keterancaman IUCN.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
                     <a href="#katalog" class="btn btn-fg-amber px-4 py-2 rounded-pill shadow-sm">
-                        <i class="bi bi-compass me-1"></i> Eksplorasi Satwa
+                        <i class="bi bi-search me-1"></i> Mulai Saring Satwa
                     </a>
-                    <a href="{{ url_for('manage') }}" class="btn btn-outline-light px-4 py-2 rounded-pill">
-                        <i class="bi bi-database me-1"></i> Buka Manajemen Database
+                    <a href="{{ url_for('beranda') }}" class="btn btn-outline-light px-4 py-2 rounded-pill">
+                        <i class="bi bi-info-circle me-1"></i> Tentang FaunaGuard
+                    </a>
+                    <a href="{{ url_for('manage') }}" class="btn btn-sm btn-outline-warning px-3 py-2 rounded-pill d-inline-flex align-items-center gap-1 opacity-75">
+                        <i class="bi bi-database me-1"></i> Kelola Database
                     </a>
                 </div>
             </div>

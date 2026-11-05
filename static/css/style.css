@@ -259,3 +259,108 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.08);
 }
+
+/* 9. Beranda & Feature Cards Styling */
+.section-tag {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--fg-secondary);
+    background-color: rgba(74, 148, 62, 0.12);
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    color: var(--fg-primary);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    border: 1px solid var(--fg-card-border);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(24, 96, 73, 0.12);
+    border-color: var(--fg-secondary);
+}
+
+.feature-icon-wrapper {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.feature-icon-green {
+    background-color: rgba(24, 96, 73, 0.1);
+    color: var(--fg-primary);
+}
+
+.feature-icon-amber {
+    background-color: rgba(217, 131, 39, 0.12);
+    color: var(--fg-amber);
+}
+
+.feature-icon-jungle {
+    background-color: rgba(74, 148, 62, 0.12);
+    color: var(--fg-secondary);
+}
+
+.about-highlight-box {
+    background: #ffffff;
+    border: 1px solid var(--fg-card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 6px 20px rgba(24, 96, 73, 0.06);
+}
+
+.step-card {
+    background-color: #ffffff;
+    border: 1px solid var(--fg-card-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    height: 100%;
+}
+
+.step-number {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--fg-amber);
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 3px 8px rgba(217, 131, 39, 0.4);
+}
+
+.cta-banner {
+    background: linear-gradient(135deg, var(--fg-primary) 0%, #104233 100%);
+    border-radius: 18px;
+    padding: 3rem 2rem;
+    border: 2px solid rgba(236, 232, 175, 0.25);
+    box-shadow: 0 10px 30px rgba(24, 96, 73, 0.25);
+}
