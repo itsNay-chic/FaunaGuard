@@ -23,8 +23,8 @@
                     <a href="{{ url_for('index') }}" class="btn btn-fg-amber px-4 py-2 rounded-pill shadow-sm d-inline-flex align-items-center gap-2">
                         <i class="bi bi-grid-fill"></i> Jelajahi Katalog Satwa
                     </a>
-                    <a href="#tentang-faunaguard" class="btn btn-outline-light px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-info-circle"></i> Tentang Web Ini
+                    <a href="#fitur-unggulan" class="btn btn-outline-light px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-star-fill"></i> Fitur Unggulan
                     </a>
                     <a href="{{ url_for('manage') }}" class="btn btn-sm btn-outline-warning px-3 py-2 rounded-pill d-inline-flex align-items-center gap-1 opacity-75">
                         <i class="bi bi-database me-1"></i> Kelola Database
@@ -74,88 +74,8 @@
     </div>
 </section>
 
-<!-- 2. Section: Tentang FaunaGuard (Penjelasan Singkat & Latar Belakang) -->
-<section class="py-5" id="tentang-faunaguard">
-    <div class="container my-3">
-        <div class="text-center max-w-700 mx-auto mb-5">
-            <span class="section-tag">
-                <i class="bi bi-bookmark-heart-fill me-1"></i> Mengenal FaunaGuard
-            </span>
-            <h2 class="section-title display-6 mb-3">
-                Mengapa FaunaGuard Hadir?
-            </h2>
-            <p class="text-muted lead fs-6">
-                Sebuah inisiatif digital untuk menjembatani data keanekaragaman hayati Kalimantan dengan masyarakat luas, 
-                mendorong kesadaran pelestarian lingkungan, serta melindungi spesies endemik dari ancaman kepunahan.
-            </p>
-        </div>
-
-        <div class="row g-4 align-items-stretch">
-            <!-- Kartu 1: Apa itu FaunaGuard -->
-            <div class="col-lg-4 col-md-6">
-                <div class="about-highlight-box h-100">
-                    <div class="feature-icon-wrapper feature-icon-green">
-                        <i class="bi bi-shield-check"></i>
-                    </div>
-                    <h5 class="fw-bold mb-3" style="color: var(--fg-primary);">
-                        Apa itu FaunaGuard?
-                    </h5>
-                    <p class="text-secondary small lh-lg mb-0">
-                        <strong>FaunaGuard</strong> adalah platform web edukatif yang bertindak sebagai suaka informasi dan inventaris digital satwa dilindungi di Pulau Kalimantan (Borneo). 
-                        Aplikasi ini menyajikan ringkasan profil taksonomi, peran ekologis, tingkat ancaman, dan estimasi populasi secara transparan dan mudah diakses oleh publik.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Kartu 2: Urgensi Borneo & Ancaman Hayati -->
-            <div class="col-lg-4 col-md-6">
-                <div class="about-highlight-box h-100">
-                    <div class="feature-icon-wrapper feature-icon-amber">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                    </div>
-                    <h5 class="fw-bold mb-3" style="color: var(--fg-amber);">
-                        Urgensi Hutan Hujan Borneo
-                    </h5>
-                    <p class="text-secondary small lh-lg mb-0">
-                        Pulau Kalimantan memiliki hutan hujan tropis tertua di bumi (berusia lebih dari 130 juta tahun) yang menjadi rumah bagi ribuan flora dan fauna endemik dunia. 
-                        Namun, deforestasi masif, kebakaran lahan gambut, perburuan liar, dan fragmentasi habitat telah menempatkan satwa ikonik seperti Orangutan dan Bekantan pada status kritis kepunahan.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Kartu 3: Misi Edukasi & Data Konservasi -->
-            <div class="col-lg-4 col-md-12">
-                <div class="about-highlight-box h-100">
-                    <div class="feature-icon-wrapper feature-icon-jungle">
-                        <i class="bi bi-bullseye"></i>
-                    </div>
-                    <h5 class="fw-bold mb-3" style="color: var(--fg-secondary);">
-                        Misi & Nilai Konservasi
-                    </h5>
-                    <p class="text-secondary small lh-lg mb-0">
-                        Kami meyakini bahwa <em>"Konservasi dimulai dari pemahaman"</em>. FaunaGuard bertujuan membangun kepedulian generasi muda dan masyarakat melalui penyebaran wawasan ilmiah, 
-                        mendukung pembelajaran akademis, serta menyediakan sistem pengelolaan inventaris satwa berbasis database relasional yang terstruktur.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Kutipan Inspiratif Konservasi -->
-        <div class="p-4 mt-4 rounded-4 text-center" style="background-color: var(--fg-sand); border-left: 5px solid var(--fg-primary);">
-            <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
-                <i class="bi bi-quote fs-3 text-success"></i>
-                <span class="fw-bold" style="color: var(--fg-primary);">Komitmen Pelestarian Fauna Borneo</span>
-            </div>
-            <p class="mb-0 text-dark small fst-italic">
-                "Setiap spesies memiliki peran tak tergantikan dalam menjaga keseimbangan ekosistem bumi. 
-                Kehilangan satu satwa berarti memutus rantai kehidupan hutan hujan tropis kita."
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- 3. Section: Fitur Utama Web Ini -->
-<section class="py-5 bg-white border-top border-bottom">
+<!-- 2. Section: Fitur Utama Web Ini -->
+<section class="py-5 bg-white border-top border-bottom" id="fitur-unggulan">
     <div class="container my-3">
         <div class="text-center max-w-700 mx-auto mb-5">
             <span class="section-tag">
@@ -221,7 +141,7 @@
     </div>
 </section>
 
-<!-- 4. Section: Sorotan Satwa Kritis & Ikonik Kalimantan -->
+<!-- 3. Section: Sorotan Satwa Kritis & Ikonik Kalimantan -->
 <section class="py-5">
     <div class="container my-3">
         <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-3">
@@ -312,7 +232,7 @@
 </section>
 
 
-<!-- 5. Section: Call to Action (CTA Banner) -->
+<!-- 4. Section: Call to Action (CTA Banner) -->
 <section class="container my-5">
     <div class="cta-banner text-center text-white">
         <span class="badge px-3 py-2 rounded-pill mb-3" style="background-color: var(--fg-amber); color: #fff;">
@@ -332,7 +252,7 @@
     </div>
 </section>
 
-<!-- 6. Modal Pop-up: Detail Edukatif Satwa -->
+<!-- 5. Modal Pop-up: Detail Edukatif Satwa -->
 <div class="modal fade" id="animalDetailModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow-lg overflow-hidden">
