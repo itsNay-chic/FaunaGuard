@@ -107,7 +107,7 @@ Tema Desain: **Borneo Rainforest & Wildlife Palette** (Warna Alam Hijau Hutan Hu
 
 ### 📊 Slide 9: [SCREENSHOT] Inspeksi Tabel & Seeder di MySQL Workbench (Database)
 * **Poin Penting**:
-  * Menampilkan screenshot *Result Grid* MySQL Workbench yang memperlihatkan baris data satwa (Orangutan, Bekantan, Badak Kalimantan, Enggang Gading, Trenggiling, Pesut Mahakam).
+  * Menampilkan screenshot *Result Grid* MySQL Workbench yang memperlihatkan 5 baris data satwa Kalimantan (Orangutan Kalimantan, Bekantan, Badak Kalimantan, Kucing Merah Kalimantan, Enggang Gading).
   * Membuktikan bahwa query `SELECT` menggunakan operasi `JOIN` berhasil menggabungkan data dari 4 tabel berbeda menjadi satu tampilan informasi utuh.
 * **Gambar Tersimpan**: `pembagian_tugas/assets_ppt/db_data_grid.png`
 

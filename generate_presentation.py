@@ -187,7 +187,7 @@ def generate_db_data_grid():
     ui_header = patches.Rectangle((0, 7.0), 15, 0.8, facecolor="#E1E5EA", edgecolor="#B0B8C1", lw=1)
     ax.add_patch(ui_header)
     ax.text(0.4, 7.4, "MySQL Workbench 8.0 CE — Query Result Grid : [ faunaguard_db.animals ]", color="#333333", fontsize=11, fontweight="bold")
-    ax.text(14.6, 7.4, "LIMIT 0, 1000  |  Fetched 6 row(s) in 0.0012 sec", color="#666666", fontsize=9, ha="right")
+    ax.text(14.6, 7.4, "LIMIT 0, 1000  |  Fetched 5 row(s) in 0.0012 sec", color="#666666", fontsize=9, ha="right")
 
     # Table Header Bar
     table_bar = patches.Rectangle((0, 6.4), 15, 0.6, facecolor="#186049", edgecolor="#0E3B2D", lw=1)
@@ -209,16 +209,13 @@ def generate_db_data_grid():
         ax.plot([cur_x + width, cur_x + width], [6.4, 7.0], color="#2C7A60", lw=1)
         cur_x += width
 
-    # Sample Data Rows
+    # Sample Data Rows (Sesuai Persis dengan Data Satwa di Web)
     rows = [
         ("1", "Orangutan Kalimantan", "Pongo pygmaeus", "Mamalia", "CR - Kritis", "TN Tanjung Puting", "57.000"),
-        ("2", "Bekantan", "Nasalis larvatus", "Mamalia", "EN - Terancam", "DAS Mahakam", "16.000"),
-        ("3", "Badak Kalimantan", "Dicerorhinus sumatrensis", "Mamalia", "CR - Kritis", "TN Kutai", "15"),
-        ("4", "Enggang Gading", "Rhinoplax vigil", "Aves (Burung)", "CR - Kritis", "TN Betung Kerihun", "4.000"),
-        ("5", "Trenggiling Sunda", "Manis javanica", "Mamalia", "CR - Kritis", "TN Bukit Baka Raya", "12.000"),
-        ("6", "Pesut Mahakam", "Orcaella brevirostris", "Mamalia", "CR - Kritis", "Sungai Mahakam", "80"),
-        ("7", "Macan Dahan Kalimantan", "Neofelis diardi borneensis", "Mamalia", "VU - Rentan", "TN Sebangau", "5.000"),
-        ("8", "Gajah Kerdil Borneo", "Elephas maximus borneensis", "Mamalia", "EN - Terancam", "Hutan Heart of Borneo", "1.500")
+        ("2", "Bekantan", "Nasalis larvatus", "Mamalia", "EN - Terancam", "TN Kutai", "16.000"),
+        ("3", "Badak Kalimantan", "Dicerorhinus sumatrensis", "Mamalia", "CR - Kritis", "Hutan Lindung Kutai Barat", "15"),
+        ("4", "Kucing Merah Kalimantan", "Catopuma badia", "Mamalia", "EN - Terancam", "TN Kayan Mentarang", "2.200"),
+        ("5", "Enggang Gading", "Rhinoplax vigil", "Aves (Burung)", "CR - Kritis", "TN Betung Kerihun", "4.000")
     ]
 
     row_y = 5.9
