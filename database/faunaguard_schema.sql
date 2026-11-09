@@ -42,7 +42,7 @@ CREATE TABLE animals (
     category_id INT NOT NULL,
     status_id INT NOT NULL,
     habitat_id INT NOT NULL,
-    foto_url VARCHAR(500) NULL,
+    foto_url TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
