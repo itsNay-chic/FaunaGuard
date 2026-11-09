@@ -18,6 +18,11 @@
             <a href="{{ url_for('index') }}" class="btn btn-outline-secondary rounded-pill px-3">
                 <i class="bi bi-grid-fill me-1"></i> Katalog Satwa
             </a>
+            <form action="{{ url_for('manual_sync_github') }}" method="POST" class="d-inline" onsubmit="this.querySelector('button').disabled = true; this.querySelector('button').innerHTML = '<i class=\'bi bi-arrow-repeat spinner-border spinner-border-sm me-1\'></i> Menyinkronkan...';">
+                <button type="submit" class="btn btn-outline-success rounded-pill px-3 shadow-sm" title="Sinkronkan seluruh data MySQL ke file faunaguard_schema.sql di GitHub">
+                    <i class="bi bi-cloud-arrow-up me-1"></i> Sinkron ke GitHub
+                </button>
+            </form>
             <a href="{{ url_for('add_animal') }}" class="btn btn-fg-amber rounded-pill px-4 shadow-sm">
                 <i class="bi bi-plus-circle me-1"></i> Tambah Satwa Baru
             </a>

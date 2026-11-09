@@ -12,6 +12,7 @@ from urllib.parse import urlparse
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from db import get_db_connection, DB_NAME, DB_HOST, DB_PORT
+from db_sync import sync_database_to_github
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "faunaguard-secret-key-borneo-2026")
@@ -410,6 +411,7 @@ def add_animal():
                 ))
 
             flash(f"Data satwa '{nama_lokal}' berhasil ditambahkan ke database!", "success")
+            sync_database_to_github(f"feat(satwa): tambah satwa '{nama_lokal}' otomatis dari web")
             return redirect(url_for("manage"))
 
         # GET request: ambil data referensi foreign key untuk form
@@ -534,6 +536,7 @@ def edit_animal(animal_id):
                 ))
 
             flash(f"Data satwa '{nama_lokal}' berhasil diperbarui!", "success")
+            sync_database_to_github(f"feat(satwa): perbarui satwa '{nama_lokal}' otomatis dari web")
             return redirect(url_for("manage"))
 
         # GET request: ambil satwa target berserta data habitat relasinya
@@ -589,9 +592,27 @@ def delete_animal(animal_id):
             cursor.execute("DELETE FROM animals WHERE id = %s;", (animal_id,))
 
         flash(f"Data satwa '{nama}' berhasil dihapus dari database.", "info")
+        sync_database_to_github(f"feat(satwa): hapus satwa '{nama}' otomatis dari web")
         return redirect(url_for("manage"))
     finally:
         conn.close()
+
+
+@app.route("/manage/sync-github", methods=["POST"])
+def manual_sync_github():
+    """
+    Fitur Sinkronisasi Manual: Ekspor isi database MySQL faunaguard_db terkini
+    ke file database/faunaguard_schema.sql dan langsung push ke repositori GitHub.
+    """
+    try:
+        ok, msg = sync_database_to_github("chore(db): sinkronisasi manual database MySQL ke github", background=False)
+        if ok:
+            flash("Database MySQL berhasil disinkronkan ke file SQL dan GitHub!", "success")
+        else:
+            flash(f"Gagal sinkronisasi: {msg}", "warning")
+    except Exception as e:
+        flash(f"Error sinkronisasi: {e}", "danger")
+    return redirect(url_for("manage"))
 
 
 if __name__ == "__main__":
