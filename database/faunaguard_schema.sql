@@ -1,18 +1,7 @@
--- =============================================================================
--- FaunaGuard: Database Schema & Seeder Script
--- Tema: Media Penyebaran Informasi & Konservasi Satwa Dilindungi Kalimantan
--- RDBMS Engine: MySQL 5.7+ / 8.0+ (InnoDB)
--- Kompatibel Penuh: MySQL Workbench 8.0 CE
--- =============================================================================
-
--- 1. Inisialisasi Database
 CREATE DATABASE IF NOT EXISTS faunaguard_db 
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 
-USE faunaguard_db;
-
--- Matikan foreign key checks sementara untuk kemudahan eksekusi ulang (reset aman)
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS animals;
 DROP TABLE IF EXISTS habitats;
@@ -20,18 +9,12 @@ DROP TABLE IF EXISTS conservation_statuses;
 DROP TABLE IF EXISTS categories;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- =============================================================================
--- 2. DDL: Pembuatan Tabel Master (Normalized Tables)
--- =============================================================================
-
--- Tabel 1: Kategori Taksonomi Satwa
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama_kategori VARCHAR(50) NOT NULL UNIQUE,
     deskripsi TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabel 2: Status Konservasi Berdasarkan Kategori IUCN Red List
 CREATE TABLE conservation_statuses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     kode VARCHAR(10) NOT NULL UNIQUE,
@@ -40,17 +23,12 @@ CREATE TABLE conservation_statuses (
     tingkat_ancaman VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabel 3: Kawasan Konservasi & Habitat Alami Kalimantan
 CREATE TABLE habitats (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama_habitat VARCHAR(100) NOT NULL,
     lokasi VARCHAR(100) NOT NULL,
     tipe_ekosistem VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- =============================================================================
--- 3. DDL: Pembuatan Tabel Utama Satwa (Dengan Foreign Key)
--- =============================================================================
 
 CREATE TABLE animals (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -65,8 +43,7 @@ CREATE TABLE animals (
     foto_url VARCHAR(500) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    -- Definisi Foreign Key & Integritas Referensial
+  
     CONSTRAINT fk_animal_category 
         FOREIGN KEY (category_id) REFERENCES categories (id) 
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -80,29 +57,21 @@ CREATE TABLE animals (
         ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Indexing untuk mempercepat query pencarian dan join
 CREATE INDEX idx_animals_nama ON animals (nama_lokal);
 CREATE INDEX idx_animals_category ON animals (category_id);
 CREATE INDEX idx_animals_status ON animals (status_id);
 CREATE INDEX idx_animals_habitat ON animals (habitat_id);
 
--- =============================================================================
--- 4. Seeder Data: Master Data Kategori, Status IUCN, & Habitat
--- =============================================================================
-
--- Master Kategori
 INSERT INTO categories (id, nama_kategori, deskripsi) VALUES
 (1, 'Mamalia', 'Hewan menyusui bertulang belakang yang berdarah panas, sebagian besar berhabitat di hutan tropis dan sungai Kalimantan.'),
 (2, 'Aves', 'Kelompok burung dan unggas berbulu yang memiliki peran penting dalam penyebaran biji pohon hutan kanopi Kalimantan.'),
 (3, 'Reptilia', 'Hewan melata berdarah dingin bersisik, mendiami rawa gambut dan perairan tawar Pulau Borneo.');
 
--- Master Status Konservasi IUCN
 INSERT INTO conservation_statuses (id, kode, nama_status, warna_badge, tingkat_ancaman) VALUES
 (1, 'CR', 'Critically Endangered (Kritis)', '#D98327', 'Sangat Kritis Menuju Kepunahan'),
 (2, 'EN', 'Endangered (Terancam)', '#4A943E', 'Risiko Tinggi Kepunahan di Alam Liar'),
 (3, 'VU', 'Vulnerable (Rentan)', '#186049', 'Menghadapi Risiko Kepunahan Masa Depan');
 
--- Master Kawasan Habitat Kalimantan
 INSERT INTO habitats (id, nama_habitat, lokasi, tipe_ekosistem) VALUES
 (1, 'Taman Nasional Tanjung Puting', 'Kotawaringin Barat, Kalimantan Tengah', 'Hutan Rawa Gambut & Hutan Tropis'),
 (2, 'Taman Nasional Kutai', 'Kutai Timur & Bontang, Kalimantan Timur', 'Hutan Hujan Dataran Rendah & Bakau'),
@@ -110,10 +79,6 @@ INSERT INTO habitats (id, nama_habitat, lokasi, tipe_ekosistem) VALUES
 (4, 'Daerah Aliran Sungai Mahakam', 'Kutai Kartanegara & Samarinda, Kaltim', 'Perairan Air Tawar & Danau Rawa'),
 (5, 'Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan'),
 (7, 'Taman Nasional Kayan Mentarang', 'Kalimantan Utara, Malinau', 'Hutan Hujan Pegunungan Dataran Tinggi');
-
--- =============================================================================
--- 5. Seeder Data: 5 Satwa Ikonik & Dilindungi Khas Kalimantan (Sesuai Web)
--- =============================================================================
 
 INSERT INTO animals (
     id,
@@ -188,11 +153,6 @@ INSERT INTO animals (
     'https://tse3.mm.bing.net/th/id/OIP.LYLz50B9LE-9g4NSWSnH4gHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
 );
 
--- =============================================================================
--- 6. Query Pengujian untuk Verifikasi Langsung di MySQL Workbench
--- =============================================================================
-
--- Query Uji: Tampilkan semua satwa lengkap dengan kategori, status, dan habitatnya
 SELECT 
     a.id,
     a.nama_lokal,
