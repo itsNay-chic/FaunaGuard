@@ -76,9 +76,8 @@ INSERT INTO habitats (id, nama_habitat, lokasi, tipe_ekosistem) VALUES
 (1, 'Taman Nasional Tanjung Puting', 'Kotawaringin Barat, Kalimantan Tengah', 'Hutan Rawa Gambut & Hutan Tropis'),
 (2, 'Taman Nasional Kutai', 'Kutai Timur & Bontang, Kalimantan Timur', 'Hutan Hujan Dataran Rendah & Bakau'),
 (3, 'Hutan Lindung Kutai Barat', 'Kutai Barat, Kalimantan Timur', 'Hutan Hujan Tropis Pedalaman'),
-(4, 'Daerah Aliran Sungai Mahakam', 'Kutai Kartanegara & Samarinda, Kaltim', 'Perairan Air Tawar & Danau Rawa'),
-(5, 'Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan'),
-(7, 'Taman Nasional Kayan Mentarang', 'Kalimantan Utara, Malinau', 'Hutan Hujan Pegunungan Dataran Tinggi');
+(4, 'Taman Nasional Kayan Mentarang', 'Kalimantan Utara, Malinau', 'Hutan Hujan Pegunungan Dataran Tinggi'),
+(5, 'Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan');
 
 INSERT INTO animals (
     id,
@@ -137,7 +136,7 @@ INSERT INTO animals (
     2200,
     1, -- Mamalia
     2, -- EN (Endangered)
-    7, -- TN Kayan Mentarang
+    4, -- TN Kayan Mentarang
     'https://1001indonesia.net/asset/2021/03/Kucing-Merah-Kalimantan.jpg'
 ),
 (
