@@ -149,6 +149,18 @@ INSERT INTO animals (
     1,
     5,
     'https://tse3.mm.bing.net/th/id/OIP.LYLz50B9LE-9g4NSWSnH4gHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+),
+(
+    7,
+    'penyu sisik',
+    'sejenis penyu',
+    'penyu nya lucu',
+    'telurnya diambil nelayan',
+    9953,
+    3,
+    2,
+    5,
+    'https://yayasanpenyu.org/wp-content/uploads/2020/01/hawkbill-e1582531327180.jpg'
 );
 
 SELECT 
