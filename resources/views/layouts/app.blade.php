@@ -41,13 +41,18 @@
                             <i class="bi bi-grid-fill me-1"></i> Katalog Satwa
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('animals.*') ? 'active' : '' }}" href="{{ route('animals.manage') }}">
-                            <i class="bi bi-database-fill-gear me-1"></i> Kelola Database (CRUD)
-                        </a>
-                    </li>
 
                     @auth
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('animals.*') ? 'active' : '' }}" href="{{ route('animals.manage') }}">
+                                <i class="bi bi-database-fill-gear me-1"></i> Kelola Database (CRUD)
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-fg-amber btn-sm px-3 py-2 rounded-pill d-inline-flex align-items-center gap-1 shadow-sm" href="{{ route('animals.create') }}">
+                                <i class="bi bi-plus-circle-fill"></i> Tambah Satwa
+                            </a>
+                        </li>
                         <li class="nav-item ms-lg-2 dropdown">
                             <a class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill dropdown-toggle d-inline-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle text-warning"></i>
@@ -80,12 +85,6 @@
                             </a>
                         </li>
                     @endauth
-
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-fg-amber btn-sm px-3 py-2 rounded-pill d-inline-flex align-items-center gap-1 shadow-sm" href="{{ route('animals.create') }}">
-                            <i class="bi bi-plus-circle-fill"></i> Tambah Satwa
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -144,8 +143,10 @@
                         <a href="{{ route('beranda') }}">Beranda</a>
                         <span class="opacity-50 text-white">•</span>
                         <a href="{{ route('katalog') }}">Katalog Satwa</a>
-                        <span class="opacity-50 text-white">•</span>
-                        <a href="{{ route('animals.manage') }}">Kelola Database</a>
+                        @auth
+                            <span class="opacity-50 text-white">•</span>
+                            <a href="{{ route('animals.manage') }}">Kelola Database</a>
+                        @endauth
                     </div>
                 </div>
             </div>

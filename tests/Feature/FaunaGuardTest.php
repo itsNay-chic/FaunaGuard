@@ -2,12 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Animal;
-use App\Models\Category;
-use App\Models\ConservationStatus;
-use App\Models\Habitat;
 use App\Models\User;
+use Tests\TestCase;
 
 class FaunaGuardTest extends TestCase
 {
@@ -41,7 +38,7 @@ class FaunaGuardTest extends TestCase
         $animal = Animal::first();
         $this->assertNotNull($animal);
 
-        $response = $this->getJson('/api/animals/' . $animal->id);
+        $response = $this->getJson('/api/animals/'.$animal->id);
         $response->assertStatus(200);
         $response->assertJsonFragment([
             'nama_lokal' => $animal->nama_lokal,
@@ -49,27 +46,58 @@ class FaunaGuardTest extends TestCase
     }
 
     /**
-     * Test halaman Kelola Database (CRUD).
+     * Test tamu tak terautentikasi (guest) dicegah mengakses halaman kelola dan diarahkan ke login.
      */
-    public function test_manage_page_is_accessible(): void
+    public function test_guest_cannot_access_manage_page(): void
     {
         $response = $this->get('/manage');
-        $response->assertStatus(200);
-        $response->assertSee('Manajemen Data Satwa Dilindungi');
+        $response->assertRedirect('/login');
     }
 
     /**
-     * Test halaman Form Tambah Satwa.
+     * Test tamu tak terautentikasi dicegah mengakses formulir tambah satwa.
      */
-    public function test_create_animal_page_is_accessible(): void
+    public function test_guest_cannot_access_create_animal_page(): void
     {
         $response = $this->get('/animals/create');
-        $response->assertStatus(200);
-        $response->assertSee('Input Data Satwa Baru');
+        $response->assertRedirect('/login');
     }
 
     /**
-     * Test halaman Login Admin.
+     * Test tamu tak terautentikasi dicegah memanipulasi (tambah/ubah/hapus) data satwa.
+     */
+    public function test_guest_cannot_manipulate_animals(): void
+    {
+        $postResponse = $this->post('/animals', [
+            'nama_lokal' => 'Satwa Ilegal Tamu',
+            'nama_ilmiah' => 'Animalia illegalis',
+            'category_id' => 1,
+            'status_id' => 1,
+            'habitat_id' => 1,
+        ]);
+        $postResponse->assertRedirect('/login');
+        $this->assertDatabaseMissing('animals', ['nama_lokal' => 'Satwa Ilegal Tamu']);
+    }
+
+    /**
+     * Test admin terautentikasi dapat membuka panel kelola dan formulir tambah satwa.
+     */
+    public function test_authenticated_admin_can_access_manage_and_create(): void
+    {
+        $admin = User::first();
+        $this->assertNotNull($admin);
+
+        $manageResponse = $this->actingAs($admin)->get('/manage');
+        $manageResponse->assertStatus(200);
+        $manageResponse->assertSee('Manajemen Data Satwa Dilindungi');
+
+        $createResponse = $this->actingAs($admin)->get('/animals/create');
+        $createResponse->assertStatus(200);
+        $createResponse->assertSee('Input Data Satwa Baru');
+    }
+
+    /**
+     * Test halaman Login Admin dapat diakses.
      */
     public function test_login_page_is_accessible(): void
     {
@@ -97,10 +125,13 @@ class FaunaGuardTest extends TestCase
     }
 
     /**
-     * Test operasi CRUD Satwa (Store, Update, Delete) via Eloquent.
+     * Test operasi CRUD Satwa (Store, Update, Delete) oleh admin terautentikasi.
      */
     public function test_animal_crud_operations(): void
     {
+        $admin = User::first();
+        $this->assertNotNull($admin);
+
         // 1. Store
         $postData = [
             'nama_lokal' => 'Pesut Mahakam Test',
@@ -114,7 +145,7 @@ class FaunaGuardTest extends TestCase
             'foto_url' => 'https://example.com/pesut.jpg',
         ];
 
-        $storeResponse = $this->post('/animals', $postData);
+        $storeResponse = $this->actingAs($admin)->post('/animals', $postData);
         $storeResponse->assertRedirect('/manage');
 
         $animal = Animal::where('nama_lokal', 'Pesut Mahakam Test')->first();
@@ -127,7 +158,7 @@ class FaunaGuardTest extends TestCase
             'estimasi_populasi' => 75,
         ]);
 
-        $updateResponse = $this->put('/animals/' . $animal->id, $updateData);
+        $updateResponse = $this->actingAs($admin)->put('/animals/'.$animal->id, $updateData);
         $updateResponse->assertRedirect('/manage');
 
         $animal->refresh();
@@ -135,7 +166,7 @@ class FaunaGuardTest extends TestCase
         $this->assertEquals(75, $animal->estimasi_populasi);
 
         // 3. Delete
-        $deleteResponse = $this->delete('/animals/' . $animal->id);
+        $deleteResponse = $this->actingAs($admin)->delete('/animals/'.$animal->id);
         $deleteResponse->assertRedirect('/manage');
 
         $this->assertNull(Animal::find($animal->id));
