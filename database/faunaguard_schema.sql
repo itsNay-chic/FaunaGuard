@@ -186,6 +186,18 @@ INSERT INTO animals (
     3,
     4,
     'https://th.bing.com/th/id/OIP.wYzeZXraA3LOuHjFmIyFcgHaEK?w=320&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+),
+(
+    9,
+    'Buaya Senyulong',
+    'Tomistoma schlegelii',
+    'buaya air tawar bermoncong ramping penghuni rawa gambut dan sungai pedalaman yang berperan sebagai predator puncak pengendali populasi ikan dan satwa semi-akuatik, insinyur ekosistem yang menjaga struktur dasar rawa lewat kubangan dan sarangnya, serta bioindikator alami kesehatan ekosistem gambut.',
+    'kerusakan dan hilangnya habitat rawa gambut (akibat pembukaan perkebunan kelapa sawit, pengeringan lahan gambut, dan kebakaran hutan), pencemaran serta pendangkalan sungai dari aktivitas pertambangan dan penebangan liar, terjerat alat tangkap ikan (bycatch) seperti jaring insang dan pancing nelayan, serta perburuan liar untuk diambil telur, daging, maupun diperdagangkan secara ilegal.',
+    25000,
+    3,
+    2,
+    6,
+    'https://image.idntimes.com/post/20260408/1000067314_6682a4da-3387-4850-9550-a5700ff14b53.jpg'
 );
 
 SELECT 
