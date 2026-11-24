@@ -31,9 +31,15 @@ class CategorySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 4,
+                'nama_kategori' => 'Sphyrnidae',
+                'deskripsi' => 'Kelompok hiu martil (Chondrichthyes) bertulang rawan dengan struktur kepala khas (cephalofoil), mendiami perairan pesisir dan terumbu karang tropis.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('categories')->upsert($categories, ['id'], ['nama_kategori', 'deskripsi', 'updated_at']);
     }
 }
-

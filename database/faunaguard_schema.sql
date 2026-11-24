@@ -72,7 +72,8 @@ CREATE INDEX idx_animals_habitat ON animals (habitat_id);
 INSERT INTO categories (id, nama_kategori, deskripsi) VALUES
 (1, 'Mamalia', 'Hewan menyusui bertulang belakang yang berdarah panas, sebagian besar berhabitat di hutan tropis dan sungai Kalimantan.'),
 (2, 'Aves', 'Kelompok burung dan unggas berbulu yang memiliki peran penting dalam penyebaran biji pohon hutan kanopi Kalimantan.'),
-(3, 'Reptilia', 'Hewan melata berdarah dingin bersisik, mendiami rawa gambut dan perairan tawar Pulau Borneo.');
+(3, 'Reptilia', 'Hewan melata berdarah dingin bersisik, mendiami rawa gambut dan perairan tawar Pulau Borneo.'),
+(4, 'Sphyrnidae', 'Kelompok hiu martil (Chondrichthyes) bertulang rawan dengan struktur kepala khas (cephalofoil), mendiami perairan pesisir dan terumbu karang tropis.');
 
 INSERT INTO conservation_statuses (id, kode, nama_status, warna_badge, tingkat_ancaman) VALUES
 (1, 'CR', 'Critically Endangered (Kritis)', '#D98327', 'Sangat Kritis Menuju Kepunahan'),
