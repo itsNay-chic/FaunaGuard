@@ -149,6 +149,18 @@ INSERT INTO animals (
     1,
     5,
     'https://tse3.mm.bing.net/th/id/OIP.LYLz50B9LE-9g4NSWSnH4gHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+),
+(
+    6,
+    'Penyu Sisik',
+    'Eretmochelys imbricata',
+    'Memakan ubur-ubur supaya tidak overpopulasi',
+    'Populasinya terus menurun akibat perburuan liar, eksploitasi cangkang, serta perusakan habitat',
+    400,
+    3,
+    1,
+    1,
+    'https://th.bing.com/th/id/OIP.GXVve9prX2s_wgkyBAEEAQHaFN?w=235&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
 );
 
 SELECT 
