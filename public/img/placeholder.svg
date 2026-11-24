@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <defs>
+    <linearGradient id="forestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#103d2f" />
+      <stop offset="50%" stop-color="#186049" />
+      <stop offset="100%" stop-color="#24785c" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#d98327" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#186049" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="640" height="400" fill="url(#forestGrad)" />
+  <rect width="640" height="400" fill="url(#sunGlow)" />
+  
+  <!-- Silhouette Trees / Leaves decoration -->
+  <path d="M 0 400 L 0 320 Q 60 280 120 330 T 240 310 T 360 340 T 480 300 T 600 330 L 640 320 L 640 400 Z" fill="#0b2920" opacity="0.6" />
+  <path d="M 0 400 L 0 350 Q 80 320 160 360 T 320 340 T 480 360 T 640 330 L 640 400 Z" fill="#081e17" opacity="0.8" />
+  
+  <!-- Shield Icon -->
+  <g transform="translate(320, 160) scale(1.1)">
+    <path d="M 0 -45 L 35 -30 C 35 15 20 45 0 55 C -20 45 -35 15 -35 -30 Z" fill="#ece8af" opacity="0.15" />
+    <path d="M 0 -40 L 30 -26 C 30 12 17 38 0 47 C -17 38 -30 12 -30 -26 Z" fill="none" stroke="#ece8af" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Paw print inside shield -->
+    <ellipse cx="0" cy="14" rx="10" ry="8" fill="#d98327" />
+    <circle cx="-11" cy="-2" r="3.5" fill="#d98327" />
+    <circle cx="-4" cy="-9" r="3.5" fill="#d98327" />
+    <circle cx="4" cy="-9" r="3.5" fill="#d98327" />
+    <circle cx="11" cy="-2" r="3.5" fill="#d98327" />
+  </g>
+  
+  <!-- Text -->
+  <text x="320" y="270" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#ece8af" letter-spacing="1.5">FAUNAGUARD BORNEO</text>
+  <text x="320" y="295" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#a4cfb7" opacity="0.85">Foto Satwa Sedang Diperbarui</text>
+</svg>
