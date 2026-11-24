@@ -143,10 +143,6 @@
                         <a href="{{ route('beranda') }}">Beranda</a>
                         <span class="opacity-50 text-white">•</span>
                         <a href="{{ route('katalog') }}">Katalog Satwa</a>
-                        @auth
-                            <span class="opacity-50 text-white">•</span>
-                            <a href="{{ route('animals.manage') }}">Kelola Database</a>
-                        @endauth
                     </div>
                 </div>
             </div>
