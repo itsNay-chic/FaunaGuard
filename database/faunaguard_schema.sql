@@ -161,6 +161,18 @@ INSERT INTO animals (
     1,
     1,
     'https://th.bing.com/th/id/OIP.GXVve9prX2s_wgkyBAEEAQHaFN?w=235&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+),
+(
+    9,
+    'Binturong',
+    'Arctictis binturong penicillatus',
+    'Berperan sebagai penyebar biji alami, pendukung keberlangsungan pohon ara (Ficus), penjaga dinamika tajuk hutan, bagian dari rantai ekologi hutan tropis, indikator kesehatan ekosistem, penopang keanekaragaman hayati.',
+    'Hilangnya habitat',
+    NULL,
+    1,
+    3,
+    1,
+    'https://th.bing.com/th/id/OIP.lH-4Ht6GAoFQkGHH-UiuegHaE8?w=248&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
 );
 
 SELECT 
