@@ -80,13 +80,26 @@ class AnimalSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 6,
+                'nama_lokal' => 'Penyu Sisik',
+                'nama_ilmiah' => 'Eretmochelys imbricata',
+                'deskripsi' => 'Memakan ubur-ubur supaya tidak overpopulasi',
+                'ancaman_utama' => 'Populasinya terus menurun akibat perburuan liar, eksploitasi cangkang, serta perusakan habitat',
+                'estimasi_populasi' => 400,
+                'category_id' => 3,
+                'status_id' => 1,
+                'habitat_id' => 1,
+                'foto_url' => 'https://th.bing.com/th/id/OIP.GXVve9prX2s_wgkyBAEEAQHaFN?w=235&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('animals')->upsert($animals, ['id'], [
             'nama_lokal', 'nama_ilmiah', 'deskripsi', 'ancaman_utama',
             'estimasi_populasi', 'category_id', 'status_id', 'habitat_id',
-            'foto_url', 'updated_at'
+            'foto_url', 'updated_at',
         ]);
     }
 }
-

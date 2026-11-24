@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAnimalRequest;
+use App\Http\Requests\UpdateAnimalRequest;
 use App\Models\Animal;
 use App\Models\Category;
 use App\Models\ConservationStatus;
 use App\Models\Habitat;
-use App\Http\Requests\StoreAnimalRequest;
-use App\Http\Requests\UpdateAnimalRequest;
+use App\Services\DatabaseSyncService;
 use Illuminate\Support\Str;
 
 class AnimalController extends Controller
@@ -46,14 +47,17 @@ class AnimalController extends Controller
         // 1. Tangani Upload File Gambar jika ada
         if ($request->hasFile('foto_file') && $request->file('foto_file')->isValid()) {
             $file = $request->file('foto_file');
-            $filename = Str::random(8) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = Str::random(8).'_'.time().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $filename);
-            $data['foto_url'] = '/uploads/' . $filename;
+            $data['foto_url'] = '/uploads/'.$filename;
         }
 
         unset($data['foto_file']);
 
         $animal = Animal::create($data);
+
+        // Sinkronisasi otomatis ke faunaguard_schema.sql & GitHub
+        DatabaseSyncService::syncToGitHub("feat(satwa): tambah satwa '{$animal->nama_lokal}' otomatis via Laravel");
 
         return redirect()->route('animals.manage')
             ->with('success', "Data satwa '{$animal->nama_lokal}' berhasil ditambahkan ke database!");
@@ -81,9 +85,9 @@ class AnimalController extends Controller
         // Tangani Upload File Gambar jika ada file baru diunggah
         if ($request->hasFile('foto_file') && $request->file('foto_file')->isValid()) {
             $file = $request->file('foto_file');
-            $filename = Str::random(8) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = Str::random(8).'_'.time().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $filename);
-            $data['foto_url'] = '/uploads/' . $filename;
+            $data['foto_url'] = '/uploads/'.$filename;
         } elseif (empty($data['foto_url'])) {
             // Pertahankan foto lama jika URL dikosongkan dan tidak ada file baru
             $data['foto_url'] = $animal->foto_url;
@@ -92,6 +96,9 @@ class AnimalController extends Controller
         unset($data['foto_file']);
 
         $animal->update($data);
+
+        // Sinkronisasi otomatis ke faunaguard_schema.sql & GitHub
+        DatabaseSyncService::syncToGitHub("feat(satwa): perbarui satwa '{$animal->nama_lokal}' otomatis via Laravel");
 
         return redirect()->route('animals.manage')
             ->with('success', "Data satwa '{$animal->nama_lokal}' berhasil diperbarui!");
@@ -105,8 +112,10 @@ class AnimalController extends Controller
         $nama = $animal->nama_lokal;
         $animal->delete();
 
+        // Sinkronisasi otomatis ke faunaguard_schema.sql & GitHub
+        DatabaseSyncService::syncToGitHub("feat(satwa): hapus satwa '{$nama}' otomatis via Laravel");
+
         return redirect()->route('animals.manage')
             ->with('info', "Data satwa '{$nama}' berhasil dihapus dari database.");
     }
 }
-
