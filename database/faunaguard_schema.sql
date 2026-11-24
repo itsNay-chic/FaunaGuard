@@ -84,7 +84,8 @@ INSERT INTO habitats (id, nama_habitat, lokasi, tipe_ekosistem) VALUES
 (2, 'Taman Nasional Kutai', 'Kutai Timur & Bontang, Kalimantan Timur', 'Hutan Hujan Dataran Rendah & Bakau'),
 (3, 'Hutan Lindung Kutai Barat', 'Kutai Barat, Kalimantan Timur', 'Hutan Hujan Tropis Pedalaman'),
 (4, 'Taman Nasional Kayan Mentarang', 'Kalimantan Utara, Malinau', 'Hutan Hujan Pegunungan Dataran Tinggi'),
-(5, 'Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan');
+(5, 'Taman Nasional Betung Kerihun', 'Kapuas Hulu, Kalimantan Barat', 'Hutan Pegunungan & Perbukitan Batuan'),
+(6, 'Taman Nasional Danau Sentarum', 'Kapuas Hulu, Kalimantan Barat', 'Lahan Basah & Hutan Rawa Gambut');
 
 INSERT INTO animals (
     id, nama_lokal, nama_ilmiah, deskripsi, ancaman_utama,

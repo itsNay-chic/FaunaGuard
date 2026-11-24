@@ -94,6 +94,7 @@ class FaunaGuardTest extends TestCase
         $createResponse = $this->actingAs($admin)->get('/animals/create');
         $createResponse->assertStatus(200);
         $createResponse->assertSee('Input Data Satwa Baru');
+        $createResponse->assertSee('Taman Nasional Danau Sentarum');
     }
 
     /**

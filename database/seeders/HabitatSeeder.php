@@ -50,9 +50,16 @@ class HabitatSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 6,
+                'nama_habitat' => 'Taman Nasional Danau Sentarum',
+                'lokasi' => 'Kapuas Hulu, Kalimantan Barat',
+                'tipe_ekosistem' => 'Lahan Basah & Hutan Rawa Gambut',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('habitats')->upsert($habitats, ['id'], ['nama_habitat', 'lokasi', 'tipe_ekosistem', 'updated_at']);
     }
 }
-
