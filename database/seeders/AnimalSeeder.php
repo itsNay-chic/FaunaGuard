@@ -94,6 +94,20 @@ class AnimalSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 7,
+                'nama_lokal' => 'Binturong',
+                'nama_ilmiah' => 'Arctictis binturong penicillatus',
+                'deskripsi' => 'Berperan sebagai penyebar biji alami, pendukung keberlangsungan pohon ara (Ficus), penjaga dinamika tajuk hutan, bagian dari rantai ekologi hutan tropis, indikator kesehatan ekosistem, penopang keanekaragaman hayati.',
+                'ancaman_utama' => 'Hilangnya habitat',
+                'estimasi_populasi' => null,
+                'category_id' => 1,
+                'status_id' => 3,
+                'habitat_id' => 1,
+                'foto_url' => 'https://th.bing.com/th/id/OIP.lH-4Ht6GAoFQkGHH-UiuegHaE8?w=248&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('animals')->upsert($animals, ['id'], [

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\ConservationStatus;
 use App\Models\Habitat;
 use App\Services\DatabaseSyncService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class AnimalController extends Controller
@@ -54,7 +55,18 @@ class AnimalController extends Controller
 
         unset($data['foto_file']);
 
+        // Pastikan urutan ID selalu rapi tanpa celah nomor
+        self::resequenceIds();
+        $nextId = (Animal::max('id') ?? 0) + 1;
+        $data['id'] = $nextId;
+
         $animal = Animal::create($data);
+
+        try {
+            DB::statement('ALTER TABLE animals AUTO_INCREMENT = '.($nextId + 1));
+        } catch (\Throwable $e) {
+            // Abaikan jika non-MySQL
+        }
 
         // Sinkronisasi otomatis ke faunaguard_schema.sql & GitHub
         DatabaseSyncService::syncToGitHub("feat(satwa): tambah satwa '{$animal->nama_lokal}' otomatis via Laravel");
@@ -112,10 +124,34 @@ class AnimalController extends Controller
         $nama = $animal->nama_lokal;
         $animal->delete();
 
+        // Susun ulang ID satwa yang tersisa agar tetap berurutan (1, 2, 3, ...)
+        self::resequenceIds();
+
         // Sinkronisasi otomatis ke faunaguard_schema.sql & GitHub
         DatabaseSyncService::syncToGitHub("feat(satwa): hapus satwa '{$nama}' otomatis via Laravel");
 
         return redirect()->route('animals.manage')
             ->with('info', "Data satwa '{$nama}' berhasil dihapus dari database.");
+    }
+
+    /**
+     * Menyusun ulang ID satwa agar selalu berurutan (1, 2, 3, ...) tanpa celah nomor.
+     */
+    public static function resequenceIds(): void
+    {
+        $animals = Animal::orderBy('id', 'ASC')->get();
+        $counter = 1;
+        foreach ($animals as $item) {
+            if ($item->id !== $counter) {
+                Animal::where('id', $item->id)->update(['id' => $counter]);
+            }
+            $counter++;
+        }
+
+        try {
+            DB::statement("ALTER TABLE animals AUTO_INCREMENT = {$counter}");
+        } catch (\Throwable $e) {
+            // Abaikan jika non-MySQL
+        }
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 
 class Animal extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'nama_lokal',
         'nama_ilmiah',
         'deskripsi',
@@ -58,8 +59,8 @@ class Animal extends Model
 
         return $query->where(function ($q) use ($keyword) {
             $q->where('nama_lokal', 'LIKE', "%{$keyword}%")
-              ->orWhere('nama_ilmiah', 'LIKE', "%{$keyword}%")
-              ->orWhere('deskripsi', 'LIKE', "%{$keyword}%");
+                ->orWhere('nama_ilmiah', 'LIKE', "%{$keyword}%")
+                ->orWhere('deskripsi', 'LIKE', "%{$keyword}%");
         });
     }
 
@@ -68,9 +69,10 @@ class Animal extends Model
      */
     public function scopeFilterCategory(Builder $query, $categoryId): Builder
     {
-        if (!empty($categoryId) && is_numeric($categoryId)) {
+        if (! empty($categoryId) && is_numeric($categoryId)) {
             return $query->where('category_id', $categoryId);
         }
+
         return $query;
     }
 
@@ -79,10 +81,10 @@ class Animal extends Model
      */
     public function scopeFilterStatus(Builder $query, $statusId): Builder
     {
-        if (!empty($statusId) && is_numeric($statusId)) {
+        if (! empty($statusId) && is_numeric($statusId)) {
             return $query->where('status_id', $statusId);
         }
+
         return $query;
     }
 }
-
