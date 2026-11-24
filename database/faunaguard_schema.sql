@@ -173,6 +173,18 @@ INSERT INTO animals (
     3,
     1,
     'https://th.bing.com/th/id/OIP.lH-4Ht6GAoFQkGHH-UiuegHaE8?w=248&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
+),
+(
+    8,
+    'Kuau Raja',
+    'Argusianus argus',
+    'penghuni lantai hutan dataran rendah yang menyebarkan biji, mengendalikan serangga tanah, membuka petak tanah lewat arena tarinya, dan menandakan hutan masih sehat.',
+    'deforestasi dan fragmentasi hutan (akibat pembukaan perkebunan, pertambangan, dan kebakaran hutan) yang merusak habitatnya, serta perburuan liar menggunakan jerat untuk diambil daging, bulu sayap, maupun diperdagangkan secara ilegal.',
+    NULL,
+    2,
+    3,
+    4,
+    'https://th.bing.com/th/id/OIP.wYzeZXraA3LOuHjFmIyFcgHaEK?w=320&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
 );
 
 SELECT 
