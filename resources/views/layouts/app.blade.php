@@ -136,7 +136,7 @@
                         <i class="bi bi-shield-shaded text-warning me-1"></i> FaunaGuard
                     </h5>
                     <p class="small mb-0 text-light opacity-75">
-                        Portal Edukasi & Suaka Informasi Konservasi Satwa Dilindungi Kalimantan berbasis Framework Laravel 11/12.
+                        Portal Edukasi & Suaka Informasi Konservasi Satwa Dilindungi Kalimantan.
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
